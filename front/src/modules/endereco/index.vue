@@ -112,18 +112,18 @@ export default {
   },
   methods: {
     ...mapActions({
-      getUsuario: "$_endereco/getItems",
+      getEndereco: "$_endereco/getItems",
       deleteItem: "$_endereco/deleteItem",
     }),
     async handlePageChange(paginate) {
-      return await this.getUsuario({
+      return await this.getEndereco({
         search: this.buscar,
         page: paginate.page,
         per_page: paginate.perPages,
       });
     },
     async search() {
-      await this.getUsuario({ search: this.buscar });
+      await this.getEndereco({ search: this.buscar, });
     },
     navigateToEdit(item) {
       return this.$router.push({
@@ -136,7 +136,7 @@ export default {
         if (result.isConfirmed) {
           const resp = await this.deleteItem(item.id);
           if (!resp) return false;
-          await this.getUsuario();
+          await this.getEndereco();
           Swal.message(resp.data.success);
         }
       });

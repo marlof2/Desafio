@@ -17,33 +17,25 @@ class UserEnderecosController extends Controller
     {
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         return $this->user_endereco_service->store($request);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(UserEnderecos $userEnderecos)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, UserEnderecos $userEnderecos)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Request $request)
     {
         return $this->user_endereco_service->destroy($request);

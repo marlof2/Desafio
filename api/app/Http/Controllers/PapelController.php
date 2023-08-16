@@ -18,33 +18,25 @@ class PapelController extends Controller
         return $this->papel_service->index($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         return $this->papel_service->store($request);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Papel $papel)
     {
         return $this->papel_service->show($papel);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Papel $papel)
     {
         return $this->papel_service->update($request, $papel);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Papel $papel)
     {
         return $this->papel_service->destroy($papel);

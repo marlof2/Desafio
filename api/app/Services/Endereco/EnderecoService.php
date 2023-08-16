@@ -16,32 +16,17 @@ class EnderecoService
     public function index($request)
     {
 
-        if ($request->filled('limit')) {
+        if ($request->filled('limit') || $request->filled('logradouro') || $request->filled('cep')) {
             if ($request->limit == '-1') {
-                $data =  $this->endereco::Todos($request);
-            }
-        } else if($request->filled('search')){
-            $data =  $this->endereco->where('logradouro', 'like', '%' . $request->search . '%')->orWhere('cep', 'like', '%' . $request->search . '%')->paginate(config('app.pageLimit'));
-        }
-        else {
-            $data = $this->endereco->paginate(config('app.pageLimit'));
-        }
-
-        if ($request->filled('logradouro') || $request->filled('cep')) {
-            if ($request->logradouro && $request->cep) {
-                $data =  $this->endereco::FiltroLogradouroECep($request);
-                return  response()->json($data, Response::HTTP_OK);
-            }
-            if ($request->logradouro) {
-                $data =  $this->endereco::FiltroLogradouro($request);
-                return  response()->json($data, Response::HTTP_OK);
-            }
-            if ($request->cep) {
-                $data =  $this->endereco::FiltroCep($request);
-                return  response()->json($data, Response::HTTP_OK);
+              return  $data =  $this->endereco::Search($request);
             }
         }
 
+        if($request->filled('search')){
+            return $data =  $this->endereco->where('logradouro', 'like', '%' . $request->search . '%')->paginate(config('app.pageLimit'));
+        }
+
+        return $data = $this->endereco->paginate(config('app.pageLimit'));
         return response()->json($data, Response::HTTP_OK);
     }
     public function store($request)
