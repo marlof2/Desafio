@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Services\UserService;
@@ -16,7 +18,7 @@ class UserController extends Controller {
     public function index(Request $request){
         return $this->user_service->index($request);
     }
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         return $this->user_service->store($request);
     }
@@ -26,7 +28,7 @@ class UserController extends Controller {
         return $this->user_service->show($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreUserRequest $request, $id)
     {
         return $this->user_service->update($request,$id);
     }

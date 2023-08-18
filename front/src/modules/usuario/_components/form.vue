@@ -23,7 +23,7 @@
                 v-model="form.name"
                 :label="'Nome'"
                 :maxlength="100"
-                :rules="required"
+                :rules="[rules.required]"
                 required
                 :disabled="disabledFilds()"
               />
@@ -34,7 +34,7 @@
               <TextField
                 v-model="form.cpf"
                 :label="'CPF'"
-                :rules="required"
+                :rules="[rules.required, rules.cpf]"
                 required
                 v-mask="'###.###.###-##'"
                 :disabled="disabledFilds()"
@@ -47,7 +47,7 @@
                 v-model="form.email"
                 :label="'E-mail'"
                 :maxlength="100"
-                :rules="required"
+                :rules="[rules.required, rules.email]"
                 required
                 :disabled="disabledFilds()"
               />
@@ -58,7 +58,7 @@
               <span>
                 {{ "Perfil"
                 }}<span
-                  v-if="required"
+                  v-if="rules.required"
                   style="font-size: 14px"
                   class="red--text"
                   >*</span
@@ -180,9 +180,22 @@ export default {
   },
   data() {
     return {
+      rules: {
+        required: [(v) => !!v || "Campo obrigatório"],
+        email: (value) => {
+          return (
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+              value
+            ) || "E-mail invalido."
+          );
+        },
+        cpf: (value) => {
+          return (/[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/.test(value) || "CPF invalido."
+          );
+        },
+      },
       valid: true,
       formValidated: true,
-      required: [(v) => !!v || "Campo obrigatório"],
       form: { ...constants.form },
       breadcrumbs: [...constants.breadcrumbsForm],
       step: 1,
@@ -225,7 +238,7 @@ export default {
       Swal.messageToast("Deletado com suesso.", "success");
     },
     disabledFilds() {
-      return this.$route.name == "usuario-detalhar"
+      return this.$route.name == "usuario-detalhar";
     },
     openDialog() {
       this.dialog = true;
