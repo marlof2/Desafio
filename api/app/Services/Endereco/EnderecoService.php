@@ -26,7 +26,7 @@ class EnderecoService
             return $data =  $this->endereco->where('logradouro', 'like', '%' . $request->search . '%')->paginate(config('app.pageLimit'));
         }
 
-        return $data = $this->endereco->paginate(config('app.pageLimit'));
+         $data = $this->endereco->paginate(config('app.pageLimit'));
         return response()->json($data, Response::HTTP_OK);
     }
     public function store($request)
